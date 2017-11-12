@@ -1,0 +1,29 @@
+.questions-config {
+  padding: 5px;
+}
+
+.questions-config__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.questions-config__section {
+  width: 30%;
+  padding: 5px;
+  margin: 10px 0;
+  border: 1px solid #cccccc;
+}
+
+.questions-config__title {
+  margin-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
+
+.questions-config__subsections {
+  display: flex;
+}
+
+.questions-config__subsection:not(:last-child) {
+  border-right: 1px solid #000;
+}

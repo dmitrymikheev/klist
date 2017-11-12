@@ -1,0 +1,11 @@
+.app-header {
+  background-color: #222;
+  padding: 20px;
+  color: white;
+}
+
+.app-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 15px;
+}
