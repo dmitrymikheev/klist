@@ -1,22 +1,19 @@
 import React from "react";
 
 import SectionsConfigContainer from "./../../containers/SectionsConfigContainer";
+import ResultsContainer from "./../../containers/ResultsContainer";
 import Questions from "./../Questions";
 
 export default class Progress extends React.PureComponent {
-  componentWillMount() {
-    // if (!this.props.currentSection) {
-    //   this.props.selectSection(this.props.progress.sectionsArray[0]);
-    // }
-  }
-
   goToNextQuestion = () => {
-    this.props.selectSection(
-      this.props.progress.sectionsArray[this.currentQuestionIndex]
-    );
+    this.props.selectSection();
   };
 
   render() {
+    if (this.props.progress.status.finished) {
+      return <ResultsContainer />;
+    }
+
     if (!this.props.progress.status.started) {
       return <SectionsConfigContainer />;
     }
@@ -27,7 +24,7 @@ export default class Progress extends React.PureComponent {
         currentSubsection={this.props.progress.currentSubsection}
         title={this.props.progress.title}
         selectAnswer={this.props.selectAnswer}
-        results={this.props.results}
+        results={this.props.results.results}
         goToNextQuestion={this.goToNextQuestion}
       />
     );

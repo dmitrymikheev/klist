@@ -2,22 +2,16 @@ import progressActionTypes from "./../actionTypes/progress";
 import SECTIONS from "./../constants/sections";
 
 const INITIAL_STATE = {
-  status: {
-    started: false
-  },
   currentSection: null,
   currentSubsection: null,
   selectedSections: null,
   selectedSectionsArray: null,
   currentSectionIndex: 0,
-  results: {}
-  // results: {
-  // Bodies: {
-  //   Chubby: "Maybe",
-  //   Skinny: "Like"
-  // }
-
-  // }
+  results: {},
+  status: {
+    started: false,
+    finished: false
+  }
 };
 
 export default function progress(state = INITIAL_STATE, action) {
@@ -43,19 +37,38 @@ export default function progress(state = INITIAL_STATE, action) {
     }
 
     case progressActionTypes.SELECT_SECTION: {
-      let currentSubsection = state.currentSubsection;
-      let currentSectionIndex = state.currentSectionIndex + 1
-      let currentSection = state.selectedSectionsArray[currentSectionIndex]
-      const subsections = state.selectedSections[state.currentSection].subsections;
+      if (
+        state.currentSectionIndex ===
+        state.selectedSectionsArray.length - 1
+      ) {
+        return {
+          ...state,
+          status: {
+            ...state.status,
+            finished: true
+          }
+        };
+      }
+
+      let currentSection;
+      let currentSubsection;
+      let currentSectionIndex;
+      let nextSubsections;
 
       if (
-        currentSubsection &&
-        subsections &&
-        subsections[0] === currentSubsection
+        state.currentSubsection &&
+        state.selectedSections[state.currentSection].subsections[0] ===
+          state.currentSubsection
       ) {
-        currentSubsection = subsections[1] || null;
-        currentSection = state.currentSection
-        currentSectionIndex = state.currentSectionIndex
+        currentSectionIndex = state.currentSectionIndex;
+        currentSection = state.currentSection;
+        currentSubsection =
+          state.selectedSections[state.currentSection].subsections[1];
+      } else {
+        currentSectionIndex = state.currentSectionIndex + 1;
+        currentSection = state.selectedSectionsArray[currentSectionIndex];
+        nextSubsections = state.selectedSections[currentSection].subsections;
+        currentSubsection = nextSubsections ? nextSubsections[0] : null;
       }
 
       return {

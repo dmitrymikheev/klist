@@ -22,7 +22,7 @@ export default createSelector(
       currentSubsection,
       questions: currentSubsection
         ? sections[currentSection].questions[currentSubsection]
-        : sections[currentSection] && sections[currentSection].questions , //change after
+        : sections[currentSection] && sections[currentSection].questions, //change after
       title: currentSection
     };
   }

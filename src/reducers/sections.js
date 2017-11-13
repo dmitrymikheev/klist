@@ -32,8 +32,10 @@ export default function sections(state = INITIAL_STATE, action) {
 
     case sectionsConfigActionTypes.ADD_QUESTION_IN_SUBSECTION: {
       const section = state[action.section];
-      const questions = section ? section.questions[action.subsection] || [] : [];
-      const subsection = section ? state[action.section].questions : {}
+      const questions = section
+        ? section.questions[action.subsection] || []
+        : [];
+      const subsection = section ? state[action.section].questions : {};
 
       return {
         ...state,
@@ -71,12 +73,14 @@ export default function sections(state = INITIAL_STATE, action) {
       const filteredQuestions = questions.filter(
         question => question !== action.question
       );
-      const { [action.subsection]: subsection, ...restSubsection } = state[action.section].questions;
+      const { [action.subsection]: subsection, ...restSubsection } = state[
+        action.section
+      ].questions;
 
       if (!filteredQuestions.length && !Object.keys(restSubsection).length) {
         const { [action.section]: section, ...rest } = state;
 
-        return rest
+        return rest;
       }
 
       if (!filteredQuestions.length) {
@@ -86,7 +90,7 @@ export default function sections(state = INITIAL_STATE, action) {
             ...state[action.section],
             questions: restSubsection
           }
-        }
+        };
       }
 
       return {
