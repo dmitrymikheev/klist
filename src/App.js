@@ -5,17 +5,16 @@ import { createStore, applyMiddleware } from "redux";
 
 import reducers from "./reducers";
 import progressMiddleware from "./middlewares/progress";
-
+import getPresistState from "./helpers/presistState";
 import ProgressContainer from "./containers/ProgressContainer";
 
-const state = localStorage.getItem('state')
-const presistState = JSON.parse(state)
+const presistState = getPresistState();
 
 const store = createStore(
   reducers,
   presistState,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(progressMiddleware)
+  applyMiddleware(progressMiddleware),
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 class App extends Component {

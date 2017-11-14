@@ -42,7 +42,6 @@ const QuestionsItem = props => {
               name={props.name}
               value={answer}
               onChange={onChange}
-              // onFocus={onFocus}
               checked={checked}
             >
               {answer} {idx + 1}

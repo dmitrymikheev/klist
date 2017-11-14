@@ -4,7 +4,6 @@ import React from "react";
 export default class Results extends React.PureComponent {
   render() {
     const { results, selectedSectionsArray } = this.props.results;
-    console.log(this.props);
 
     return (
       <div className="results">
@@ -51,6 +50,7 @@ export default class Results extends React.PureComponent {
             </div>
           ))}
         </div>
+        <button onClick={this.props.reset}>Start again</button>
       </div>
     );
   }

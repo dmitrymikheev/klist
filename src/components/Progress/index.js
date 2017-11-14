@@ -22,6 +22,7 @@ export default class Progress extends React.PureComponent {
       <Questions
         questions={this.props.progress.questions}
         currentSubsection={this.props.progress.currentSubsection}
+        progressValue={this.props.progressValue}
         title={this.props.progress.title}
         selectAnswer={this.props.selectAnswer}
         results={this.props.results.results}

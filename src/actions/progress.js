@@ -21,3 +21,7 @@ export const selectAnswer = ({ section, subsection, question, answer }) => ({
 export const goToNextQuestion = () => ({
   type: actionTypes.NEXT_QUESTION
 })
+
+export const reset = () => ({
+  type: actionTypes.RESET
+})

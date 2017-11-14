@@ -1,5 +1,6 @@
 import SECTIONS from "../constants/sections";
 import sectionsConfigActionTypes from "./../actionTypes/sectionsConfig";
+import progressActionTypes from "./../actionTypes/progress";
 
 const INITIAL_STATE = SECTIONS;
 
@@ -138,6 +139,10 @@ export default function sections(state = INITIAL_STATE, action) {
               questions: rest
             }
           };
+    }
+
+    case progressActionTypes.RESET: {
+      return INITIAL_STATE;
     }
   }
 

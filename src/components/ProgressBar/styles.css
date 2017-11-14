@@ -1,0 +1,10 @@
+.progress-bar {
+  position: relative;
+  height: 2px;
+}
+
+.progress-bar__result {
+  height: 100%;
+  background: red;
+  transition: width .2s ease;
+}

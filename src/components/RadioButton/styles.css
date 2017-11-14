@@ -11,9 +11,12 @@
 
 .checkbox__input:focus + .checkbox__label {
   outline: 1px solid blue;
+  transform: translateZ(0);
 }
 
 .checkbox__input:checked + .checkbox__label {
   background: blue;
-  outline: 1px solid blue;
+  color: #fff;
+  outline: 1px solid red;
+  transform: translateZ(0);
 }

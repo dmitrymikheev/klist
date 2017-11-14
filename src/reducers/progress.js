@@ -43,7 +43,8 @@ export default function progress(state = INITIAL_STATE, action) {
         state.currentSubsection &&
         state.selectedSections[state.currentSection].subsections[1] ===
           state.currentSubsection;
-      const isEnd = lastSubsection ? lastSection : false;
+      const isEnd =
+        lastSubsection || !state.currentSubsection ? lastSection : false;
 
       if (isEnd) {
         return {
@@ -86,7 +87,10 @@ export default function progress(state = INITIAL_STATE, action) {
 
     case progressActionTypes.SELECT_ANSWER: {
       if (action.subsection) {
-        const answers = state.results[action.section] && state.results[action.section].subsections || {};
+        const answers =
+          (state.results[action.section] &&
+            state.results[action.section].subsections) ||
+          {};
         const subsectionAnswers = answers[action.subsection] || {};
 
         return {
@@ -116,6 +120,10 @@ export default function progress(state = INITIAL_STATE, action) {
           }
         }
       };
+    }
+
+    case progressActionTypes.RESET: {
+      return INITIAL_STATE;
     }
   }
 

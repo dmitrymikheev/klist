@@ -6,6 +6,7 @@ import QUESTIONS from "../../constants/sections";
 import QuestionsItem from "./QuestionsItem";
 import Error from "./../Error";
 import RadioButton from "../RadioButton";
+import ProgressBar from "../ProgressBar";
 
 const ERROR = "Please answer all questions";
 
@@ -13,17 +14,6 @@ export default class Questions extends React.Component {
   state = {
     error: null
   };
-
-  componentWillReceiveProps(nextProps) {
-    // if (
-    //   nextProps.currentSection.subsections &&
-    //   this.state.subsection !== nextProps.currentSection.subsections[0]
-    // ) {
-    // this.setState({
-    //   subsection: nextProps.currentSection.subsections[0]
-    // });
-    // }
-  }
 
   onKeyDown(event) {
     const answer = this.nodes[this.focusedQuestionNode][event.key - 1];
@@ -84,7 +74,9 @@ export default class Questions extends React.Component {
               - {this.props.currentSubsection}
             </span>
           )}
+          <span className="question__progress">Progress - {this.props.progressValue}%</span>
         </h4>
+        <ProgressBar progressValue={this.props.progressValue} />
         <form onSubmit={this.goToNextQuestion}>
           {this.props.questions.map(question => (
             <QuestionsItem

@@ -25,3 +25,7 @@
 .question__answer:not(:last-child) {
   border-bottom: 1px solid #f5f5f5;
 }
+
+.question__progress {
+  float: right;
+}
