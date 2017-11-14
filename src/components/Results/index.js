@@ -2,6 +2,7 @@ import "./styles.css";
 import React from "react";
 
 import { ANSWERS_KEYS } from "./../../constants/answers";
+import Button from './../Button'
 
 export default class Results extends React.PureComponent {
   render() {
@@ -57,7 +58,7 @@ export default class Results extends React.PureComponent {
             </div>
           ))}
         </div>
-        <button onClick={this.props.reset}>Start again</button>
+        <Button onClick={this.props.reset}>Start again</Button>
       </div>
     );
   }

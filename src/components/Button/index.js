@@ -1,4 +1,4 @@
-import "./styles.less";
+import "./styles.css";
 import React from "react";
 
 const Button = ({ children, ...rest }) => (

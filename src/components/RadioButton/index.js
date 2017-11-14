@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 const RadioButton = props => {
 
   return (
-    <label className="checkbox">
+    <label className="radio-button">
       <input
-        className="checkbox__input"
+        className="radio-button__input"
         type="radio"
         name={props.name}
         value={props.value}
@@ -15,7 +15,7 @@ const RadioButton = props => {
         onFocus={props.onFocus}
         checked={props.checked}
       />
-      <span className="checkbox__label">{props.children}</span>
+      <span className="radio-button__label">{props.children}</span>
     </label>
   );
 };

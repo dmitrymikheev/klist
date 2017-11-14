@@ -144,7 +144,8 @@ export default function sections(state = INITIAL_STATE, action) {
     case progressActionTypes.RESET: {
       return INITIAL_STATE;
     }
-  }
 
-  return state;
+    default:
+      return state;
+  }
 }

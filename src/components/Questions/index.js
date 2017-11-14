@@ -1,12 +1,11 @@
 import React from "react";
 import "./styles.css";
 
-import QUESTIONS from "../../constants/sections";
 import ANSWERS from "../../constants/answers";
 
 import QuestionsItem from "./QuestionsItem";
+import Button from './../Button'
 import Error from "./../Error";
-import RadioButton from "../RadioButton";
 import ProgressBar from "../ProgressBar";
 
 const ERROR = "Please answer all questions";
@@ -116,10 +115,10 @@ export default class Questions extends React.Component {
             />
           ))}
           <Error>{this.state.error}</Error>
-          <button type="submit">Submit</button>
-          <button type="button" onClick={this.props.reset}>
+          <Button type="submit">Submit</Button>
+          <Button type="button" onClick={this.props.reset}>
             Reset test
-          </button>
+          </Button>
         </form>
       </section>
     );
