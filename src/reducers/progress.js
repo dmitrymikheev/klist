@@ -37,10 +37,15 @@ export default function progress(state = INITIAL_STATE, action) {
     }
 
     case progressActionTypes.SELECT_SECTION: {
-      if (
-        state.currentSectionIndex ===
-        state.selectedSectionsArray.length - 1
-      ) {
+      const lastSection =
+        state.currentSectionIndex === state.selectedSectionsArray.length - 1;
+      const lastSubsection =
+        state.currentSubsection &&
+        state.selectedSections[state.currentSection].subsections[1] ===
+          state.currentSubsection;
+      const isEnd = lastSubsection ? lastSection : false;
+
+      if (isEnd) {
         return {
           ...state,
           status: {
@@ -81,7 +86,7 @@ export default function progress(state = INITIAL_STATE, action) {
 
     case progressActionTypes.SELECT_ANSWER: {
       if (action.subsection) {
-        const answers = state.results[action.section] || {};
+        const answers = state.results[action.section] && state.results[action.section].subsections || {};
         const subsectionAnswers = answers[action.subsection] || {};
 
         return {
@@ -89,11 +94,12 @@ export default function progress(state = INITIAL_STATE, action) {
           results: {
             ...state.results,
             [action.section]: {
-              ...answers,
-              hasSubsection: true,
-              [action.subsection]: {
-                ...subsectionAnswers,
-                [action.question]: action.answer
+              subsections: {
+                ...answers,
+                [action.subsection]: {
+                  ...subsectionAnswers,
+                  [action.question]: action.answer
+                }
               }
             }
           }

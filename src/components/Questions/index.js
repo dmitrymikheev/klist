@@ -45,8 +45,8 @@ export default class Questions extends React.Component {
     const questions = this.props.questions;
     const section = this.props.results[this.props.title];
     const results =
-      section && section.hasSubsection
-        ? section[this.props.currentSubsection]
+      section && section.subsections
+        ? section.subsections[this.props.currentSubsection]
         : section;
 
     if (!results || this.checkValidation(questions, results)) {
