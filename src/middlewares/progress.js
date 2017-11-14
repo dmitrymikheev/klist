@@ -13,6 +13,7 @@ export default store => next => action => {
 
   if (store.getState().progress.status.finished) {
     const state = JSON.stringify(store.getState());
+    window.state = state
     const base64 = btoa(state);
 
     window.history.replaceState(undefined, undefined, "#result="+btoa(state))
