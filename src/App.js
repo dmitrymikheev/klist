@@ -4,16 +4,14 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 
 import reducers from "./reducers";
-import progressMiddleware from './middlewares/progress'
+import progressMiddleware from "./middlewares/progress";
 
 import ProgressContainer from "./containers/ProgressContainer";
 
 const store = createStore(
   reducers,
-  applyMiddleware(
-    progressMiddleware
-  ),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(progressMiddleware)
 );
 
 class App extends Component {
