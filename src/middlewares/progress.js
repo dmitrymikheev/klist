@@ -1,7 +1,7 @@
 import progressActionTypes from "./../actionTypes/progress";
 
 export default store => next => action => {
-  if (progressActionTypes.RESET) {
+  if (action.type === progressActionTypes.RESET) {
     window.history.replaceState(undefined, undefined, '/');
   }
 
