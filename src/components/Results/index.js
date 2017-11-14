@@ -1,6 +1,8 @@
 import "./styles.css";
 import React from "react";
 
+import { ANSWERS_KEYS } from "./../../constants/answers";
+
 export default class Results extends React.PureComponent {
   render() {
     const { results, selectedSectionsArray } = this.props.results;
@@ -18,7 +20,10 @@ export default class Results extends React.PureComponent {
                 {!results[selectedSection].subsections &&
                   Object.keys(results[selectedSection]).map(question => (
                     <div key={question}>
-                      {question} - <strong>{results[selectedSection][question]}</strong>
+                      {question} -{" "}
+                      <strong>
+                        {ANSWERS_KEYS[results[selectedSection][question]]}
+                      </strong>
                     </div>
                   ))}
                 {results[selectedSection].subsections && (
@@ -35,9 +40,11 @@ export default class Results extends React.PureComponent {
                             {question} -{" "}
                             <strong>
                               {
-                                results[selectedSection].subsections[
-                                  subsection
-                                ][question]
+                                ANSWERS_KEYS[
+                                  results[selectedSection].subsections[
+                                    subsection
+                                  ][question]
+                                ]
                               }
                             </strong>
                           </div>

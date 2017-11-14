@@ -8,3 +8,5 @@ const ANSWERS_KEYS = {
   4: "Maybe",
   5: "No"
 };
+
+export { ANSWERS_KEYS }

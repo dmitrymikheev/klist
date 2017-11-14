@@ -12,8 +12,7 @@ export default store => next => action => {
   localStorage.setItem("state", JSON.stringify(state));
 
   if (store.getState().progress.status.finished) {
-    const state = JSON.stringify(store.getState());
-    window.state = state
+    const state = JSON.stringify(store.getState().progress.results);
     const base64 = btoa(state);
 
     window.history.replaceState(undefined, undefined, "#result="+btoa(state))

@@ -16,12 +16,21 @@ export default () => {
   const state = getPresistStateFromStorage();
   const hashResults = window.location.hash.replace("#result=", "");
 
-  if (state) {
-    return state;
+  if (hashResults.length) {
+    const results = JSON.parse(atob(hashResults));
+
+    return {
+      progress: {
+        results,
+        status: {
+          finished: true
+        }
+      }
+    };
   }
 
-  if (hashResults.length) {
-    return JSON.parse(atob(hashResults));
+  if (state) {
+    return state;
   }
 
   return undefined;

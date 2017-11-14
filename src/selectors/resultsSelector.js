@@ -6,10 +6,13 @@ const selectedSectionsSelector = state => state.progress.selectedSectionsArray;
 
 export default createSelector(
   [resultsSelector, selectedSectionsSelector],
-  (results, selectedSectionsArray) => ({
-    results,
-    selectedSectionsArray
-  })
+  (results, selectedSectionsArray) => {
+
+    return {
+      results,
+      selectedSectionsArray: selectedSectionsArray || Object.keys(results)
+    }
+  }
 );
 
 const getProgressValue = createSelector(

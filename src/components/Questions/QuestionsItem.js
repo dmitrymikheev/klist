@@ -1,6 +1,6 @@
 import React from "react";
 
-import ANSWERS from "../../constants/answers";
+import ANSWERS, { ANSWERS_KEYS } from "../../constants/answers";
 
 import RadioButton from "./../RadioButton";
 
@@ -44,7 +44,7 @@ const QuestionsItem = props => {
               onChange={onChange}
               checked={checked}
             >
-              {answer} {idx + 1}
+              {ANSWERS_KEYS[answer]} {idx + 1}
             </RadioButton>
           );
         })}
