@@ -6,6 +6,7 @@ import {
   selectSection,
   selectAnswer,
   goToNextQuestion,
+  reset
 } from "./../actions/progress";
 
 const mapStateToProps = state => ({
@@ -16,7 +17,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   selectSection,
   selectAnswer,
-  goToNextQuestion
+  goToNextQuestion,
+  reset
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Progress);

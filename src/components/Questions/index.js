@@ -74,7 +74,9 @@ export default class Questions extends React.Component {
               - {this.props.currentSubsection}
             </span>
           )}
-          <span className="question__progress">Progress - {this.props.progressValue}%</span>
+          <span className="question__progress">
+            Progress - {this.props.progressValue}%
+          </span>
         </h4>
         <ProgressBar progressValue={this.props.progressValue} />
         <form onSubmit={this.goToNextQuestion}>
@@ -92,6 +94,9 @@ export default class Questions extends React.Component {
           ))}
           <Error>{this.state.error}</Error>
           <button type="submit">Submit</button>
+          <button type="button" onClick={this.props.reset}>
+            Reset test
+          </button>
         </form>
       </section>
     );
