@@ -2,6 +2,7 @@ import React from "react";
 import "./styles.css";
 
 import QUESTIONS from "../../constants/sections";
+import ANSWERS from "../../constants/answers";
 
 import QuestionsItem from "./QuestionsItem";
 import Error from "./../Error";
@@ -14,32 +15,48 @@ export default class Questions extends React.Component {
   state = {
     error: null
   };
+  currentQuestionIndex = 0;
 
-  onKeyDown(event) {
-    const answer = this.nodes[this.focusedQuestionNode][event.key - 1];
+  componentDidMount() {
+    document.addEventListener("keydown", this.handleKeydown);
+  }
 
-    if (answer) {
-      answer.checked = true;
-      answer.focus();
-      this.currentQuestionIndex = this.currentQuestionIndex + 1;
-      console.log(this.nodesArray);
-      const nextQuestion = this.nodesArray[this.currentQuestionIndex];
-      const nextAnswer = this.nodes[nextQuestion][0];
-      this.focusedQuestionNode = nextQuestion;
-      nextAnswer.focus();
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.handleKeydown);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.title !== nextProps.title ||
+      this.props.currentSubsection !== nextProps.currentSubsection
+    ) {
+      window.scrollTo(0, 0);
+      this.currentQuestionIndex = 0;
+    }
+
+    if (this.isValid(nextProps)) {
+      this.props.goToNextQuestion();
     }
   }
 
+  handleKeydown = event => {
+    const answer = ANSWERS[event.key - 1];
+    if (Number.isInteger(event.key - 1) && answer) {
+      this.currentQuestionIndex += 1;
+
+      this.props.selectAnswer({
+        section: this.props.title,
+        subsection: this.props.currentSubsection,
+        question: this.props.questions[this.currentQuestionIndex - 1],
+        answer
+      });
+    }
+  };
+
   goToNextQuestion = event => {
     event.preventDefault();
-    const questions = this.props.questions;
-    const section = this.props.results[this.props.title];
-    const results =
-      section && section.subsections
-        ? section.subsections[this.props.currentSubsection]
-        : section;
 
-    if (!results || this.checkValidation(questions, results)) {
+    if (!this.isValid()) {
       return this.setState({ error: ERROR });
     }
 
@@ -48,8 +65,16 @@ export default class Questions extends React.Component {
     this.props.goToNextQuestion();
   };
 
-  checkValidation = (questions, results) =>
-    questions.filter(question => !results[question]).length;
+  isValid = (props = this.props) => {
+    const questions = props.questions;
+    const section = props.results[props.title];
+    const results =
+      section && section.subsections
+        ? section.subsections[props.currentSubsection]
+        : section;
+
+    return results && !questions.filter(question => !results[question]).length;
+  };
 
   setAnswer = ({ section, subsection, question, answer }) => {
     this.props.selectAnswer({
@@ -59,8 +84,6 @@ export default class Questions extends React.Component {
       answer
     });
   };
-
-  onFocus(event) {}
 
   render() {
     if (!this.props.questions) return null;
