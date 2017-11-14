@@ -8,8 +8,12 @@ import progressMiddleware from "./middlewares/progress";
 
 import ProgressContainer from "./containers/ProgressContainer";
 
+const state = localStorage.getItem('state')
+const presistState = JSON.parse(state)
+
 const store = createStore(
   reducers,
+  presistState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(progressMiddleware)
 );
