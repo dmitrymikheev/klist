@@ -1,3 +1,4 @@
+import "./styles.css";
 import React from "react";
 
 export default class Results extends React.PureComponent {
@@ -6,33 +7,47 @@ export default class Results extends React.PureComponent {
     console.log(this.props);
 
     return (
-      <div>
-        Results
-        <div>
+      <div className="results">
+        <h3>Results</h3>
+        <div className="results__container">
           {selectedSectionsArray.map(selectedSection => (
-            <div key={selectedSection}>
-              <div key={selectedSection}>{selectedSection}</div>
-              {!results[selectedSection].subsections &&
-                Object.keys(results[selectedSection]).map(question => (
-                  <div key={question}>
-                    {question} - {results[selectedSection][question]}
-                  </div>
-                ))}
-              {results[selectedSection].subsections &&
-                Object.keys(
-                  results[selectedSection].subsections
-                ).map(subsection => (
-                  <div key={subsection}>
-                    {subsection}
+            <div key={selectedSection} className="results__section">
+              <div key={selectedSection} className="results__section-title">
+                {selectedSection}
+              </div>
+              <div className="results__section-body">
+                {!results[selectedSection].subsections &&
+                  Object.keys(results[selectedSection]).map(question => (
+                    <div key={question}>
+                      {question} - <strong>{results[selectedSection][question]}</strong>
+                    </div>
+                  ))}
+                {results[selectedSection].subsections && (
+                  <div className="results__section-subsections">
                     {Object.keys(
-                      results[selectedSection].subsections[subsection]
-                    ).map(question => (
-                      <div key={question}>
-                        {question} - {results[selectedSection].subsections[subsection][question]}
+                      results[selectedSection].subsections
+                    ).map(subsection => (
+                      <div key={subsection}>
+                        {subsection}
+                        {Object.keys(
+                          results[selectedSection].subsections[subsection]
+                        ).map(question => (
+                          <div key={question}>
+                            {question} -{" "}
+                            <strong>
+                              {
+                                results[selectedSection].subsections[
+                                  subsection
+                                ][question]
+                              }
+                            </strong>
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </div>
-                ))}
+                )}
+              </div>
             </div>
           ))}
         </div>
