@@ -40,6 +40,7 @@ export default class Questions extends React.Component {
 
   handleKeydown = event => {
     const answer = ANSWERS[event.key - 1];
+
     if (Number.isInteger(event.key - 1) && answer) {
       this.currentQuestionIndex += 1;
 

@@ -28,12 +28,13 @@ const QuestionsItem = props => {
             props.results[props.section] &&
             props.results[props.section].subsections
           ) {
-            checked =
+            checked = Boolean(
               props.results[props.section] &&
-              props.results[props.section].subsections[props.subsection] &&
-              props.results[props.section].subsections[props.subsection][
-                props.name
-              ] === answer;
+                props.results[props.section].subsections[props.subsection] &&
+                props.results[props.section].subsections[props.subsection][
+                  props.name
+                ] === answer
+            );
           }
 
           return (

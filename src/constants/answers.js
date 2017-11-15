@@ -9,4 +9,4 @@ const ANSWERS_KEYS = {
   5: "No"
 };
 
-export { ANSWERS_KEYS }
+export { ANSWERS_KEYS };
