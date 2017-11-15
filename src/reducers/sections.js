@@ -37,6 +37,7 @@ export default function sections(state = INITIAL_STATE, action) {
         ? section.questions[action.subsection] || []
         : [];
       const subsection = section ? state[action.section].questions : {};
+      const subsections = section ? state[action.section].subsections : []
 
       return {
         ...state,
@@ -45,7 +46,8 @@ export default function sections(state = INITIAL_STATE, action) {
           questions: {
             ...subsection,
             [action.subsection]: [...questions, action.question]
-          }
+          },
+          subsections: [...subsections, action.subsection]
         }
       };
     }
@@ -89,7 +91,8 @@ export default function sections(state = INITIAL_STATE, action) {
           ...state,
           [action.section]: {
             ...state[action.section],
-            questions: restSubsection
+            questions: restSubsection,
+            subsections: Object.keys(restSubsection)
           }
         };
       }
@@ -109,6 +112,7 @@ export default function sections(state = INITIAL_STATE, action) {
     case sectionsConfigActionTypes.ADD_SUBSECTION: {
       const section = state[action.section];
       const questions = section ? section.questions : {};
+      const subsections = section ? section.subsections : []
 
       return {
         ...state,
@@ -118,7 +122,8 @@ export default function sections(state = INITIAL_STATE, action) {
             ...questions,
             [action.subsection]:
               SECTIONS[action.section].questions[action.subsection]
-          }
+          },
+          subsections: [...subsections, action.subsection]
         }
       };
     }
@@ -136,7 +141,8 @@ export default function sections(state = INITIAL_STATE, action) {
             ...state,
             [action.section]: {
               ...state[action.section],
-              questions: rest
+              questions: rest,
+              subsections: Object.keys(rest)
             }
           };
     }

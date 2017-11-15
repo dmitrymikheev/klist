@@ -63,7 +63,8 @@ export default function progress(state = INITIAL_STATE, action) {
       if (
         state.currentSubsection &&
         state.selectedSections[state.currentSection].subsections[0] ===
-          state.currentSubsection
+          state.currentSubsection &&
+        state.selectedSections[state.currentSection].subsections[1]
       ) {
         currentSectionIndex = state.currentSectionIndex;
         currentSection = state.currentSection;
