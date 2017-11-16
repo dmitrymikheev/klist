@@ -17,7 +17,7 @@ const QuestionsItem = props => {
   return (
     <div className="question__answer">
       {props.question}
-      <div>
+      <div className="question__answer-options">
         {ANSWERS.map((answer, idx) => {
           let checked = Boolean(
             props.results[props.section] &&

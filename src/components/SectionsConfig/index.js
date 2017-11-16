@@ -1,11 +1,20 @@
 import "./styles.css";
 import React, { PureComponent } from "react";
+import b_ from "bem-cn";
+
+import SECTIONS from "./../../constants/sections";
+
 import Button from "../Button";
 import Checkbox from "../Checkbox";
 import SectionsConfigControl from "./SectionsConfigControl";
-import SECTIONS from "./../../constants/sections";
+import Card from "../Card";
 
 export default class SectionsConfig extends PureComponent {
+  b_ = b_("questions-config");
+  state = {
+    showConfig: false
+  };
+
   toggleSection = ({ target }) => {
     return target.checked
       ? this.props.addSection(target.name)
@@ -42,84 +51,101 @@ export default class SectionsConfig extends PureComponent {
     this.props.start(this.props.sections.sections);
   };
 
+  toggleConfig = () => {
+    this.setState({
+      showConfig: !this.state.showConfig
+    });
+  };
+
   render() {
     const { sections, sectionsArray } = this.props.sections;
 
     return (
-      <section className="questions-config">
-        <h3>Let's test:</h3>
-        <div>You can answer for all questions or set what you want.</div>
-        <div className="questions-config__container">
+      <section className={this.b_()}>
+        <p>
+          You can answer for all questions or set what you want.{" "}
+          <Button onClick={this.toggleConfig}>Select questions</Button>
+        </p>
+        <div
+          ref="container"
+          className={this.b_("container", { hidden: !this.state.showConfig })()}
+        >
           {sectionsArray.map(section => (
-            <div key={section} className="questions-config__section">
-              <div className="questions-config__title">
-                <Checkbox
-                  onChange={this.toggleSection}
-                  name={section}
-                  checked={Boolean(sections[section])}
-                >
-                  {section}
-                </Checkbox>
-              </div>
-              {!SECTIONS[section].subsections &&
-                SECTIONS[section].questions.map(question => (
-                  <div key={question}>
-                    <SectionsConfigControl
-                      section={section}
-                      onChange={this.toggleQuestion}
-                      value={question}
-                      checked={Boolean(
-                        sections[section] &&
-                          sections[section].questions.indexOf(question) !== -1
-                      )}
-                    >
-                      {question}
-                    </SectionsConfigControl>
-                  </div>
-                ))}
-              {SECTIONS[section].subsections && (
-                <div className="questions-config__subsections">
-                  {SECTIONS[section].subsections.map(subsection => (
-                    <div
-                      key={subsection}
-                      className="questions-config__subsection"
-                    >
-                      <div className="">
-                        <SectionsConfigControl
-                          value={subsection}
-                          onChange={this.toggleSubsection}
-                          section={section}
-                          checked={Boolean(
-                            sections[section] &&
-                              sections[section].questions[subsection]
-                          )}
-                        >
-                          {subsection}
-                        </SectionsConfigControl>
-                      </div>
-                      {SECTIONS[section].questions[subsection].map(question => (
-                        <div key={question}>
-                          <SectionsConfigControl
-                            section={section}
-                            subsection={subsection}
-                            onChange={this.toggleQuestionInSubsection}
-                            value={question}
-                            checked={Boolean(
-                              sections[section] &&
-                                sections[section].questions[subsection] &&
-                                sections[section].questions[subsection].indexOf(
-                                  question
-                                ) !== -1
-                            )}
-                          >
-                            {question}
-                          </SectionsConfigControl>
-                        </div>
-                      ))}
+            <div
+              key={section}
+              className={this.b_("section", {
+                large: Boolean(SECTIONS[section].subsections)
+              })()}
+            >
+              <Card>
+                <h3 className={this.b_("title")()}>
+                  <Checkbox
+                    onChange={this.toggleSection}
+                    name={section}
+                    checked={Boolean(sections[section])}
+                  >
+                    {section}
+                  </Checkbox>
+                </h3>
+                {!SECTIONS[section].subsections &&
+                  SECTIONS[section].questions.map(question => (
+                    <div key={question} className={this.b_("question")()}>
+                      <SectionsConfigControl
+                        section={section}
+                        onChange={this.toggleQuestion}
+                        value={question}
+                        checked={Boolean(
+                          sections[section] &&
+                            sections[section].questions.indexOf(question) !== -1
+                        )}
+                      >
+                        {question}
+                      </SectionsConfigControl>
                     </div>
                   ))}
-                </div>
-              )}
+                {SECTIONS[section].subsections && (
+                  <div className={this.b_("subsections")()}>
+                    {SECTIONS[section].subsections.map(subsection => (
+                      <div key={subsection} className={this.b_("subsection")()}>
+                        <div className={this.b_("subsection-title")()}>
+                          <SectionsConfigControl
+                            value={subsection}
+                            onChange={this.toggleSubsection}
+                            section={section}
+                            checked={Boolean(
+                              sections[section] &&
+                                sections[section].questions[subsection]
+                            )}
+                          >
+                            {subsection}
+                          </SectionsConfigControl>
+                        </div>
+                        {SECTIONS[section].questions[
+                          subsection
+                        ].map(question => (
+                          <div key={question} className={this.b_("question")()}>
+                            <SectionsConfigControl
+                              section={section}
+                              subsection={subsection}
+                              onChange={this.toggleQuestionInSubsection}
+                              value={question}
+                              checked={Boolean(
+                                sections[section] &&
+                                  sections[section].questions[subsection] &&
+                                  sections[section].questions[
+                                    subsection
+                                  ].indexOf(question) !== -1
+                              )}
+                            >
+                              {question}
+                            </SectionsConfigControl>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </Card>
             </div>
           ))}
         </div>

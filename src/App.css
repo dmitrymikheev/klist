@@ -1,3 +1,10 @@
+:root {
+  --main-color: #865CD6;
+  --grey-color: #ccd3da;
+  --blue-color: #00cceb;
+  --light-grey-color: rgb(245, 245, 245);
+}
+
 .app-header {
   background-color: #222;
   padding: 20px;
@@ -5,7 +12,18 @@
 }
 
 .app-body {
-  max-width: 900px;
   margin: 0 auto;
   padding: 15px;
+}
+
+h1 {
+  margin: 0 0 15px;
+}
+
+h2 {
+  margin: 0 0 10px;
+}
+
+h3 {
+  margin: 0 0 5px;
 }

@@ -1,0 +1,37 @@
+.checkbox {
+  display: block;
+}
+
+.checkbox__input {
+  position: absolute;
+  opacity: 0;
+}
+
+.checkbox__control {
+  position: relative;
+  top: -1px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+  vertical-align: middle;
+  background-color: inherit;
+  border: 2px solid var(--grey-color);
+  border-radius: 4px;
+}
+
+.checkbox__input:checked + .checkbox__control .checkbox__control-check {
+  display: block;
+}
+
+.checkbox__control-check {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: none;
+  width: 24px;
+  height: 24px;
+  stroke-width: 4px;
+  transform: translateX(-50%) translateY(-50%);
+  stroke: var(--main-color);
+}
