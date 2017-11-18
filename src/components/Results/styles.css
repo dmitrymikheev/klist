@@ -1,23 +1,29 @@
 .results__container {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -15px;
 }
 
 .results__section {
-  margin: 0 15px 30px;
-  border: 1px solid #ccc;
-}
-
-.results__section-title {
+  width: 33.333%;
   padding: 5px;
-  border-bottom: 1px solid #ccc;
-}
-
-.results__section-body {
-  padding: 5px;
+  margin: 10px 0;
 }
 
 .results__section-subsections {
   display: flex;
+}
+
+.results__section-subsection {
+  width: 50%;
+}
+
+.results__answer {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+  .results__section {
+    width: 100%;
+    padding: 0;
+  }
 }

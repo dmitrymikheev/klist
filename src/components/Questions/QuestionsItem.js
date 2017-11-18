@@ -15,9 +15,9 @@ const QuestionsItem = props => {
   };
 
   return (
-    <div className="question__answer">
+    <div className={props.bemCn("answer")()}>
       {props.question}
-      <div className="question__answer-options">
+      <div className={props.bemCn("answer-options")()}>
         {ANSWERS.map((answer, idx) => {
           let checked = Boolean(
             props.results[props.section] &&
@@ -39,6 +39,7 @@ const QuestionsItem = props => {
 
           return (
             <RadioButton
+              bemCn={props.bemCn('radio-button')()}
               key={idx}
               name={props.name}
               value={answer}

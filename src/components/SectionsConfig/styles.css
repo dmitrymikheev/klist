@@ -13,22 +13,9 @@
 }
 
 .questions-config__section {
-  width: 32%;
+  width: 33.333%;
   padding: 5px;
   margin: 10px 0;
-}
-
-.questions-config__title {
-  padding: 0 10px 10px;
-  margin: 0 -10px 10px;
-  border-bottom: 1px solid var(--grey-color);
-}
-
-.questions-config__subsection-title {
-  padding: 10px;
-  margin: -10px -10px 10px;
-  border-bottom: 1px solid var(--grey-color);
-  background: var(--light-grey-color);
 }
 
 .questions-config__question:not(:last-child) {

@@ -7,6 +7,11 @@
   opacity: 0;
 }
 
+.checkbox__input:focus + .checkbox__control {
+  box-shadow: 0 0 2px var(--blue-color);
+  border-color: var(--blue-color);
+}
+
 .checkbox__control {
   position: relative;
   top: -1px;

@@ -8,19 +8,21 @@
 }
 
 .radio-button__label {
+  width: 100%;
   display: inline-block;
   padding: 5px;
   border: 1px solid var(--grey-color);
 }
 
 .radio-button__input:focus + .radio-button__label {
-  outline: 1px solid var(--blue-color);
+  outline: 2px solid var(--blue-color);
+  border-color: var(--blue-color);
   transform: translateZ(0);
 }
 
 .radio-button__input:checked + .radio-button__label {
   background: var(--main-color);
+  border-color: var(--main-color);
   color: #fff;
-  outline: 1px solid var(--blue-color);
   transform: translateZ(0);
 }

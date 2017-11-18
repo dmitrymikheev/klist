@@ -1,10 +1,11 @@
 import React from "react";
 import "./styles.css";
+import b_ from "bem-cn";
 
 import ANSWERS from "../../constants/answers";
 
 import QuestionsItem from "./QuestionsItem";
-import Button from './../Button'
+import Button from "./../Button";
 import Error from "./../Error";
 import ProgressBar from "../ProgressBar";
 
@@ -15,6 +16,7 @@ export default class Questions extends React.Component {
     error: null
   };
   currentQuestionIndex = 0;
+  bemCn = b_("question");
 
   componentDidMount() {
     document.addEventListener("keydown", this.handleKeydown);
@@ -32,10 +34,6 @@ export default class Questions extends React.Component {
       window.scrollTo(0, 0);
       this.currentQuestionIndex = 0;
     }
-
-    if (this.isValid(nextProps)) {
-      this.props.goToNextQuestion();
-    }
   }
 
   handleKeydown = event => {
@@ -44,12 +42,18 @@ export default class Questions extends React.Component {
     if (Number.isInteger(event.key - 1) && answer) {
       this.currentQuestionIndex += 1;
 
-      this.props.selectAnswer({
-        section: this.props.title,
-        subsection: this.props.currentSubsection,
-        question: this.props.questions[this.currentQuestionIndex - 1],
-        answer
-      });
+      if (this.props.questions[this.currentQuestionIndex - 1]) {
+        this.props.selectAnswer({
+          section: this.props.title,
+          subsection: this.props.currentSubsection,
+          question: this.props.questions[this.currentQuestionIndex - 1],
+          answer
+        });
+      }
+
+      if (this.isValid()) {
+        this.props.goToNextQuestion();
+      }
     }
   };
 
@@ -89,15 +93,15 @@ export default class Questions extends React.Component {
     if (!this.props.questions) return null;
 
     return (
-      <section className="question">
-        <h4 className="question__title">
+      <section className={this.bemCn()}>
+        <h4 className={this.bemCn("title")()}>
           {this.props.title}
           {this.props.currentSubsection && (
-            <span className="question__subsection-title">
+            <span className={this.bemCn("subsection-title")()}>
               - {this.props.currentSubsection}
             </span>
           )}
-          <span className="question__progress">
+          <span className={this.bemCn("progress")()}>
             Progress - {this.props.progressValue}%
           </span>
         </h4>
@@ -105,6 +109,7 @@ export default class Questions extends React.Component {
         <form onSubmit={this.goToNextQuestion}>
           {this.props.questions.map(question => (
             <QuestionsItem
+              bemCn={this.bemCn}
               key={question}
               section={this.props.title}
               subsection={this.props.currentSubsection}
@@ -115,11 +120,15 @@ export default class Questions extends React.Component {
               results={this.props.results}
             />
           ))}
-          <Error>{this.state.error}</Error>
-          <Button type="submit">Submit</Button>
-          <Button type="button" onClick={this.props.reset}>
-            Reset test
-          </Button>
+          <div className={this.bemCn("error")()}>
+            <Error>{this.state.error}</Error>
+          </div>
+          <div className={this.bemCn("buttons")()}>
+            <Button type="submit">Submit</Button>
+            <Button type="button" onClick={this.props.reset}>
+              Reset test
+            </Button>
+          </div>
         </form>
       </section>
     );

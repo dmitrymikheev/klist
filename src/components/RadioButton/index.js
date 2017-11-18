@@ -1,11 +1,14 @@
 import "./styles.css";
 import React from "react";
 import PropTypes from "prop-types";
+import b_ from "bem-cn";
+
+const bemCn = b_("radio-button");
 
 const RadioButton = props => (
-  <label className="radio-button">
+  <label className={bemCn.mix(props.bemCn)()}>
     <input
-      className="radio-button__input"
+      className={bemCn("input")()}
       type="radio"
       name={props.name}
       value={props.value}
@@ -13,7 +16,7 @@ const RadioButton = props => (
       onFocus={props.onFocus}
       checked={props.checked}
     />
-    <span className="radio-button__label">{props.children}</span>
+    <div className={bemCn("label")()}>{props.children}</div>
   </label>
 );
 
