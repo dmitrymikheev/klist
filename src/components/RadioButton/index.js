@@ -21,10 +21,11 @@ const RadioButton = props => (
 );
 
 RadioButton.propTypes = {
+  bemCn: PropTypes.string,
   name: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
-  onFocus: PropTypes.func
+  onFocus: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default RadioButton;

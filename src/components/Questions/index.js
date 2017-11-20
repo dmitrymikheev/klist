@@ -1,5 +1,6 @@
-import React from "react";
 import "./styles.css";
+import React from "react";
+import PropTypes from "prop-types";
 import b_ from "bem-cn";
 
 import ANSWERS from "../../constants/answers";
@@ -116,7 +117,6 @@ export default class Questions extends React.Component {
               question={question}
               name={question}
               onChange={this.setAnswer}
-              onFocus={this.onFocus}
               results={this.props.results}
             />
           ))}
@@ -134,3 +134,14 @@ export default class Questions extends React.Component {
     );
   }
 }
+
+Questions.propTypes = {
+  currentSubsection: PropTypes.string,
+  goToNextQuestion: PropTypes.func.isRequired,
+  progressValue: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired,
+  reset: PropTypes.func.isRequired,
+  results: PropTypes.object.isRequired,
+  selectAnswer: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired
+};

@@ -1,5 +1,6 @@
 import "./styles.css";
-import React, { PureComponent } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import b_ from "bem-cn";
 
 import SECTIONS from "./../../constants/sections";
@@ -9,7 +10,7 @@ import Checkbox from "../Checkbox";
 import SectionsConfigControl from "./SectionsConfigControl";
 import Card from "../Card";
 
-export default class SectionsConfig extends PureComponent {
+export default class SectionsConfig extends React.PureComponent {
   bemCn = b_("questions-config");
   state = {
     showConfig: false
@@ -162,3 +163,16 @@ export default class SectionsConfig extends PureComponent {
     );
   }
 }
+
+SectionsConfig.propTypes = {
+  addQuestion: PropTypes.func.isRequired,
+  addQuestionInSubsection: PropTypes.func.isRequired,
+  addSection: PropTypes.func.isRequired,
+  addSubsection: PropTypes.func.isRequired,
+  removeQuestion: PropTypes.func.isRequired,
+  removeQuestionInSubsection: PropTypes.func.isRequired,
+  removeSection: PropTypes.func.isRequired,
+  removeSubsection: PropTypes.func.isRequired,
+  sections: PropTypes.object.isRequired,
+  start: PropTypes.func.isRequired
+};

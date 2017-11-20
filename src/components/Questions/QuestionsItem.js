@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import ANSWERS, { ANSWERS_KEYS } from "../../constants/answers";
 
@@ -39,7 +40,7 @@ const QuestionsItem = props => {
 
           return (
             <RadioButton
-              bemCn={props.bemCn('radio-button')()}
+              bemCn={props.bemCn("radio-button")()}
               key={idx}
               name={props.name}
               value={answer}
@@ -53,6 +54,16 @@ const QuestionsItem = props => {
       </div>
     </div>
   );
+};
+
+QuestionsItem.propTypes = {
+  bemCn: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  question: PropTypes.string.isRequired,
+  results: PropTypes.object.isRequired,
+  section: PropTypes.string.isRequired,
+  subsection: PropTypes.string
 };
 
 export default QuestionsItem;

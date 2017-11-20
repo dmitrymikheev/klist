@@ -1,5 +1,6 @@
 import "./styles.css";
 import React from "react";
+import PropTypes from "prop-types";
 import b_ from "bem-cn";
 
 import { ANSWERS_KEYS } from "./../../constants/answers";
@@ -77,3 +78,8 @@ export default class Results extends React.PureComponent {
     );
   }
 }
+
+Results.propTypes = {
+  results: PropTypes.object.isRequired,
+  reset: PropTypes.func.isRequired
+};
