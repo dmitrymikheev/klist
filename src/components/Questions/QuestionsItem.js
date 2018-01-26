@@ -1,46 +1,36 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import ANSWERS, { ANSWERS_KEYS } from "../../constants/answers";
+import ANSWERS, { ANSWERS_KEYS } from '../../constants/answers';
 
-import RadioButton from "./../RadioButton";
+import RadioButton from './../FormControls/RadioButton';
 
-const QuestionsItem = props => {
-  const onChange = event => {
+const QuestionsItem = (props) => {
+  const onChange = (event) => {
     props.onChange({
       section: props.section,
       subsection: props.subsection,
       question: event.target.name,
-      answer: event.target.value
+      answer: event.target.value,
     });
   };
 
   return (
-    <div className={props.bemCn("answer")()}>
+    <div className={props.bemCn('answer')()}>
       {props.question}
-      <div className={props.bemCn("answer-options")()}>
+      <div className={props.bemCn('answer-options')()}>
         {ANSWERS.map((answer, idx) => {
-          let checked = Boolean(
-            props.results[props.section] &&
-              props.results[props.section][props.name] === answer
-          );
+          let checked = Boolean(props.results[props.section] && props.results[props.section][props.name] === answer);
 
-          if (
-            props.results[props.section] &&
-            props.results[props.section].subsections
-          ) {
-            checked = Boolean(
-              props.results[props.section] &&
+          if (props.results[props.section] && props.results[props.section].subsections) {
+            checked = Boolean(props.results[props.section] &&
                 props.results[props.section].subsections[props.subsection] &&
-                props.results[props.section].subsections[props.subsection][
-                  props.name
-                ] === answer
-            );
+                props.results[props.section].subsections[props.subsection][props.name] === answer);
           }
 
           return (
             <RadioButton
-              bemCn={props.bemCn("radio-button")()}
+              bemCn={props.bemCn('radio-button')()}
               key={idx}
               name={props.name}
               value={answer}
@@ -63,7 +53,7 @@ QuestionsItem.propTypes = {
   question: PropTypes.string.isRequired,
   results: PropTypes.object.isRequired,
   section: PropTypes.string.isRequired,
-  subsection: PropTypes.string
+  subsection: PropTypes.string,
 };
 
 export default QuestionsItem;

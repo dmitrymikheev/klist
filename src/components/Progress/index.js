@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import SectionsConfigContainer from "./../../containers/SectionsConfigContainer";
-import ResultsContainer from "./../../containers/ResultsContainer";
-import Questions from "./../Questions";
+import SectionsConfigContainer from './../../containers/SectionsConfigContainer';
+import ResultsContainer from './../../containers/ResultsContainer';
+import Questions from './../Questions';
 
 export default class Progress extends React.PureComponent {
   render() {
@@ -37,5 +37,5 @@ Progress.propTypes = {
   reset: PropTypes.func.isRequired,
   results: PropTypes.object.isRequired,
   selectAnswer: PropTypes.func.isRequired,
-  selectSection: PropTypes.func.isRequired
+  selectSection: PropTypes.func.isRequired,
 };

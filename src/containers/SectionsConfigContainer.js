@@ -1,31 +1,14 @@
-import { connect } from "react-redux";
-import getSections from "./../selectors/sectionsSelector";
-import {
-  addSection,
-  removeSection,
-  addQuestion,
-  removeQuestion,
-  addSubsection,
-  removeSubsection,
-  addQuestionInSubsection,
-  removeQuestionInSubsection
-} from "./../actions/sectionsConfig";
-import { start } from "./../actions/progress";
-import SectionsConfig from "./../components/SectionsConfig";
+import { connect } from 'react-redux';
+import setOption from './../actions/sectionsConfig';
+import { start } from './../actions/progress';
+import SectionsConfig from './../components/SectionsConfig';
 
 const mapStateToProps = state => ({
-  sections: getSections(state)
+  selectedOption: state.sectionsConfig.selectedOption,
 });
 const mapDispatchToProps = {
-  addSection,
-  removeSection,
-  addQuestion,
-  removeQuestion,
-  addSubsection,
-  removeSubsection,
-  addQuestionInSubsection,
-  removeQuestionInSubsection,
-  start
+  setOption,
+  start,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SectionsConfig);

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import sections from './sections'
-import progress from './progress'
+import sectionsConfig from './sectionsConfig';
+import progress from './progress';
 
 export default combineReducers({
-  sections,
-  progress
-})
+  sectionsConfig,
+  progress,
+});

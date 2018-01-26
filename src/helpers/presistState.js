@@ -1,6 +1,6 @@
 const getPresistStateFromStorage = () => {
   try {
-    const state = localStorage.getItem("state");
+    const state = localStorage.getItem('state');
 
     if (!state) {
       return undefined;
@@ -14,7 +14,7 @@ const getPresistStateFromStorage = () => {
 
 export default () => {
   const state = getPresistStateFromStorage();
-  const hashResults = window.location.hash.replace("#result=", "");
+  const hashResults = window.location.hash.replace('#result=', '');
 
   if (hashResults.length) {
     const results = JSON.parse(atob(hashResults));
@@ -23,9 +23,9 @@ export default () => {
       progress: {
         results,
         status: {
-          finished: true
-        }
-      }
+          finished: true,
+        },
+      },
     };
   }
 
