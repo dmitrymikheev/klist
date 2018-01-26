@@ -1,30 +1,50 @@
-import "./styles.css";
-import React from "react";
-import PropTypes from "prop-types";
-import b_ from "bem-cn";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import ANSWERS from "../../constants/answers";
+import ANSWERS from '../../constants/answers';
+import COLORS from '../../constants/colors';
 
-import QuestionsItem from "./QuestionsItem";
-import Button from "./../Button";
-import Error from "./../Error";
-import ProgressBar from "../ProgressBar";
+import QuestionsItem from './QuestionsItem';
+import Button from './../Button';
+import Error from './../Error';
+import ProgressBar from '../ProgressBar';
 
-const ERROR = "Please answer all questions";
+const Wrapper = styled.section`
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid ${COLORS.lightGrey};
+`;
+const Title = styled.h4`
+  margin: 0;
+  padding: 10px;
+  border-bottom: 1px solid ${COLORS.lightGrey};
+`;
+const SubSectionTitle = styled.span`
+  margin-left: 5px;
+`;
+const Progress = styled.span`
+  float: right;
+`;
+const ErrorWrapper = styled.div`
+  padding: 10px 10px 0;
+`;
+const Buttons = styled.div`
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+`;
+
+const ERROR = 'Please answer all questions';
 
 export default class Questions extends React.Component {
   state = {
-    error: null
+    error: null,
   };
   currentQuestionIndex = 0;
-  bemCn = b_("question");
 
   componentDidMount() {
-    document.addEventListener("keydown", this.handleKeydown);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeydown);
+    document.addEventListener('keydown', this.handleKeydown);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +57,11 @@ export default class Questions extends React.Component {
     }
   }
 
-  handleKeydown = event => {
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeydown);
+  }
+
+  handleKeydown = (event) => {
     const answer = ANSWERS[event.key - 1];
 
     if (Number.isInteger(event.key - 1) && answer) {
@@ -48,7 +72,7 @@ export default class Questions extends React.Component {
           section: this.props.title,
           subsection: this.props.currentSubsection,
           question: this.props.questions[this.currentQuestionIndex - 1],
-          answer
+          answer,
         });
       }
 
@@ -58,7 +82,7 @@ export default class Questions extends React.Component {
     }
   };
 
-  goToNextQuestion = event => {
+  goToNextQuestion = (event) => {
     event.preventDefault();
 
     if (!this.isValid()) {
@@ -71,22 +95,21 @@ export default class Questions extends React.Component {
   };
 
   isValid = (props = this.props) => {
-    const questions = props.questions;
     const section = props.results[props.title];
     const results =
-      section && section.subsections
-        ? section.subsections[props.currentSubsection]
-        : section;
+      section && section.subsections ? section.subsections[props.currentSubsection] : section;
 
-    return results && !questions.filter(question => !results[question]).length;
+    return results && !props.questions.filter(question => !results[question]).length;
   };
 
-  setAnswer = ({ section, subsection, question, answer }) => {
+  setAnswer = ({
+    section, subsection, question, answer,
+  }) => {
     this.props.selectAnswer({
       section,
       subsection,
       question,
-      answer
+      answer,
     });
   };
 
@@ -94,23 +117,18 @@ export default class Questions extends React.Component {
     if (!this.props.questions) return null;
 
     return (
-      <section className={this.bemCn()}>
-        <h4 className={this.bemCn("title")()}>
+      <Wrapper>
+        <Title>
           {this.props.title}
           {this.props.currentSubsection && (
-            <span className={this.bemCn("subsection-title")()}>
-              - {this.props.currentSubsection}
-            </span>
+            <SubSectionTitle>- {this.props.currentSubsection}</SubSectionTitle>
           )}
-          <span className={this.bemCn("progress")()}>
-            Progress - {this.props.progressValue}%
-          </span>
-        </h4>
+          <Progress>Progress - {this.props.progressValue}%</Progress>
+        </Title>
         <ProgressBar progressValue={this.props.progressValue} />
         <form onSubmit={this.goToNextQuestion}>
           {this.props.questions.map(question => (
             <QuestionsItem
-              bemCn={this.bemCn}
               key={question}
               section={this.props.title}
               subsection={this.props.currentSubsection}
@@ -120,17 +138,19 @@ export default class Questions extends React.Component {
               results={this.props.results}
             />
           ))}
-          <div className={this.bemCn("error")()}>
-            <Error>{this.state.error}</Error>
-          </div>
-          <div className={this.bemCn("buttons")()}>
+          {this.state.error && (
+            <ErrorWrapper>
+              <Error>{this.state.error}</Error>
+            </ErrorWrapper>
+          )}
+          <Buttons>
             <Button type="submit">Submit</Button>
             <Button type="button" onClick={this.props.reset}>
               Reset test
             </Button>
-          </div>
+          </Buttons>
         </form>
-      </section>
+      </Wrapper>
     );
   }
 }
@@ -143,5 +163,5 @@ Questions.propTypes = {
   reset: PropTypes.func.isRequired,
   results: PropTypes.object.isRequired,
   selectAnswer: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };

@@ -1,8 +1,16 @@
-import "./styles.css";
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-const Error = props => props.children ? (
-  <div className="error">{props.children}</div>
-) : null
+const Wrapper = styled.div`
+  padding: 5px 0;
+  color: red;
+`;
 
-export default Error
+const Error = props => (props.children ? <Wrapper>{props.children}</Wrapper> : null);
+
+Error.propTypes = {
+  children: PropTypes.string.isRequired,
+};
+
+export default Error;

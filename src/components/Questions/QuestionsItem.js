@@ -1,9 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
+import COLORS from '../../constants/colors';
 import ANSWERS, { ANSWERS_KEYS } from '../../constants/answers';
 
 import RadioButton from './../FormControls/RadioButton';
+
+const Wrapper = styled.div`
+  padding: 10px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${COLORS.lightGrey};
+  }
+`;
+const Options = styled.div`
+  display: flex;
+`;
+const RadioButtonWrapper = styled.div`
+  flex: 0 1 100%;
+`;
 
 const QuestionsItem = (props) => {
   const onChange = (event) => {
@@ -16,9 +32,9 @@ const QuestionsItem = (props) => {
   };
 
   return (
-    <div className={props.bemCn('answer')()}>
+    <Wrapper>
       {props.question}
-      <div className={props.bemCn('answer-options')()}>
+      <Options>
         {ANSWERS.map((answer, idx) => {
           let checked = Boolean(props.results[props.section] && props.results[props.section][props.name] === answer);
 
@@ -29,20 +45,15 @@ const QuestionsItem = (props) => {
           }
 
           return (
-            <RadioButton
-              bemCn={props.bemCn('radio-button')()}
-              key={idx}
-              name={props.name}
-              value={answer}
-              onChange={onChange}
-              checked={checked}
-            >
-              {ANSWERS_KEYS[answer]} {idx + 1}
-            </RadioButton>
+            <RadioButtonWrapper key={answer}>
+              <RadioButton name={props.name} value={answer} onChange={onChange} checked={checked}>
+                {ANSWERS_KEYS[answer]} {idx + 1}
+              </RadioButton>
+            </RadioButtonWrapper>
           );
         })}
-      </div>
-    </div>
+      </Options>
+    </Wrapper>
   );
 };
 
